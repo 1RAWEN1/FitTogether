@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Set;
 
@@ -14,9 +17,31 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    private String username;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String email;
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String password;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String firstName;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String lastName;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String secondName;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String gender;
+
     private boolean active = false;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -36,7 +61,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -67,8 +92,8 @@ public class User implements UserDetails {
         this.active = active;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(String password) {
@@ -83,9 +108,45 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(String username, String password, boolean active, Set<Role> roles) {
-        this.username = username;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public User(String email, String password, String firstName, String lastName, String secondName, String gender, boolean active, Set<Role> roles) {
+        this.email = email;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.secondName = secondName;
+        this.gender = gender;
         this.active = active;
         this.roles = roles;
     }
